@@ -82,7 +82,7 @@ DATABASES = {
         'NAME': 'task_manager',
         'USER': 'postgres',
         'PASSWORD': 'postgres2024',
-        'HOST': 'localhost',
+        'HOST': 'pythonanywhere.com',
         'PORT': '5432',
     }
 }
