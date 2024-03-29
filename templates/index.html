@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block span %}
+{% if user.is_authenticated %}
+Проект 'TASKMANAGER'     Имя пользователя: {{ user.username }}
+{% else %}
+Проект 'TASKMANAGER'
+{% endif %}
+{% endblock %}
+
+{% block content %}
+    <h1>Ваши заметки:</h1>
+    {% if tasks %}
+        {% for el in tasks %}
+            <style>
+              .list-group-item {
+                background-color: #FFEBCD; /* Пастельный оранжевый цвет фона */
+                color: black; /* Черный цвет текста */
+              }
+            </style>
+            <div class="d-flex flex-column p-4 gap-4 align-items-start justify-content-center">
+              <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 text-start" aria-current="true">
+                  <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div>
+                      <h6 class="mb-0">{{el.title}}</h6>
+                      <p class="mb-0 opacity-75">{{el.task}}</p>
+                    </div>
+                    <form action="{% url 'delete_task' el.id %}" method="POST">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
+                  </div>
+                </a>
+              </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h5> Нет заметок! </h5>
+    {% endif %}
+{% endblock %}
